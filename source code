@@ -1,0 +1,107 @@
+class Fraction:
+    def __init__(self, value, num, den):
+        self.value = value
+        self.num = num
+        self.den = den
+        self.show()
+
+
+    def ans(self):
+        frac = str(self.num) + "/" + str(self.den)
+        return frac
+
+    def show(self):
+        frac = self.ans()
+        print(self.value, ":", frac)
+
+    def simplify(self):
+        if self.num < self.den:
+            small = self.num
+        elif self.num == self.den:
+            print(self.value, ": 1")
+            return 0
+        else:
+            small = self.den
+        i = 2
+        while i <= small:
+            if (self.num % i == 0) and (self.den % i == 0):
+                self.num //= i
+                self.den //= i
+            else:
+                i += 1
+
+    def __str__(self):
+        frac = self.ans()
+        return str(frac)
+
+    def __add__(self, other):
+        final_num = (self.num * other.den) + (other.num * self.den)
+        final_den = self.den * other.den
+        Fraction('Result ', final_num, final_den)
+
+    def __sub__(self, other):
+        final_num = (self.num * other.den) - (other.num * self.den)
+        final_den = self.den * other.den
+        Fraction('Result ', final_num, final_den)
+
+    def __mul__(self, other):
+        final_num = self.num * other.num
+        final_den = self.den * other.den
+        Fraction('Result ', final_num, final_den)
+
+    def __truediv__(self, other):
+        final_num = (self.num * other.den)
+        final_den = (other.num * self.den)
+        Fraction('Result ', final_num, final_den)
+
+
+print("Welcome to the Fractional calculator \nEnter :--- ")
+
+n1 = int(input("Numerator : "))
+d1 = int(input("Denominator : "))
+f1 = Fraction('fraction 1', n1, d1)
+
+n2 = int(input("\nNumerator : "))
+d2 = int(input("Denominator : "))
+f2 = Fraction('fraction 2', n2, d2)
+
+i=0
+while i!=1:
+    print("Choose what you want as [ f1=(", f1, ") , f2=(", f2, ") ] :-\n\n"
+          "(1). Simplify in fractional form \t\t"
+          "(2). Simplify in Decimal form \n"
+          "(3). Greater b/w f1 and f2 \t\t\t\t"
+          "(4). f1 + f2\n"
+          "(5). f1 - f2  \t\t\t\t\t\t\t(6). f2 - f1\n"
+          "(7). f1 * f2  \t\t\t\t\t\t\t(8). f1 / f2\n")
+    op = int(input(":- "))
+    if op ==1:
+        Fraction.simplify(f1)
+        Fraction.simplify(f2)
+        print("f1 => ",f1,"\nf2 => ",f2)
+    elif op ==2:
+        print(f1," => {:.4f}".format(n1/d1))
+        print(f2," => {:.4f}".format(n2/d2))
+    elif op == 3:
+        if n1 / d1 < n2 / d2:
+            print(f2, "is greater than", f1)
+        else:
+            print(f1, "is greater than", f2)
+    elif op == 4:
+        f1 + f2
+    elif op == 5:
+        f1 - f2
+    elif op == 6:
+        f2 - f1
+    elif op == 7:
+        f1 * f2
+    elif op == 8:
+        f1 / f2
+
+    ask=int(input("\npress (1). to operate again.\npress (2). to exit. \n:- "))
+    if ask==1:
+        pass
+    elif ask==2:
+        i=1
+    else:
+        print("invalid input\nTry Again...\n")
